@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reddit.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Reddit
+namespace Reddit.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : IdentityUserContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions): base(dbContextOptions)
+        public DbSet<Page> Pages => Set<Page>();
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions)
         {
         }
 
@@ -20,7 +22,8 @@ namespace Reddit
             {
                 entity.HasOne(c => c.Owner)
                       .WithMany(u => u.OwnedCommunities)
-                      .HasForeignKey(e => e.OwnerId)
+                      .HasForeignKey(c => c.OwnerId)
+                      .IsRequired()
                       .OnDelete(DeleteBehavior.SetNull); // on delete
 
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Reddit.Dtos;
 using Reddit.Mapper;
 using Reddit.Models;
+using Reddit.Data;
 
 
 namespace Reddit.Controllers
